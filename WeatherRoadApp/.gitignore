@@ -1,0 +1,54 @@
+@"
+# KRITIŠKAI SVARBU: .env failas su API raktais
+.env
+.env.local
+.env.*.local
+env.js
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Expo
+.expo/
+.expo-shared/
+dist/
+web-build/
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.ipa
+*.apk
+
+# Metro
+.metro-health-check*
+
+# Debug
+yarn-debug.log*
+.pnp.*
+.yarn/*
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# EAS
+eas.json
+"@ | Out-File -FilePath WeatherRoadApp\.gitignore -Encoding UTF8
