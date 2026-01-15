@@ -1,4 +1,4 @@
-# 🚗 Weather Road App - Kelio Sąlygų Stebėjimo Sistema
+#  Weather Road App - Kelio Sąlygų Stebėjimo Sistema
 
 Pilna sistema kelio sąlygų stebėjimui ir dalijimusi - su mobilia programėle ir web svetaine.
 
@@ -23,24 +23,24 @@ Pilna sistema kelio sąlygų stebėjimui ir dalijimusi - su mobilia programėle 
 ## ✨ Funkcionalumas
 
 ### 📱 Mobili Programėlė
-- ✅ GPS lokacijos nustatymas
-- ✅ Barometro naudojimas (slėgio matavimas)
-- ✅ Oro prognozės gavimas (OpenWeather API)
-- ✅ Kelio būklės žymų pridėjimas
-- ✅ Laisvas tekstas papildomai informacijai
-- ✅ Real-time žemėlapis su visomis žymomis
+-  GPS lokacijos nustatymas
+-  Barometro naudojimas (slėgio matavimas)
+-  Oro prognozės gavimas (OpenWeather API)
+-  Kelio būklės žymų pridėjimas
+-  Laisvas tekstas papildomai informacijai
+-  Real-time žemėlapis su visomis žymomis
 
 ### 🌐 Web Svetainė
-- ✅ Real-time žemėlapis (Leaflet)
-- ✅ Visų žymų sąrašas
-- ✅ Automatinis atnaujinimas
-- ✅ Spalvoti markeriai pagal būklę
-- ✅ Responsive dizainas
+-  Real-time žemėlapis (Leaflet)
+-  Visų žymų sąrašas
+-  Automatinis atnaujinimas
+-  Spalvoti markeriai pagal būklę
+-  Responsive dizainas
 
 ### 🔥 Backend (Firebase)
-- ✅ Realtime Database (NoSQL)
-- ✅ WebSocket komunikacija (real-time)
-- ✅ Automatinė sincronizacija tarp mobilio ir web
+-  Realtime Database (NoSQL)
+-  WebSocket komunikacija (real-time)
+-  Automatinė sincronizacija tarp mobilio ir web
 
 ## 🚀 Pradžia
 
@@ -117,11 +117,11 @@ python -m http.server 8000
 
 ## 📊 Reikalavimai (Užduočiai)
 
-- ✅ **Mobilioji programėlė** - React Native (Expo)
-- ✅ **Įrenginio jutiklis** - Barometras (atmosferos slėgis)
-- ✅ **NoSQL duomenų bazė** - Firebase Realtime Database
-- ✅ **Internetinė svetainė** - HTML/JavaScript
-- ✅ **Bendravimas tarp sistemų** - Firebase WebSocket (real-time listeners)
+-  **Mobilioji programėlė** - React Native (Expo)
+-  **Įrenginio jutiklis** - Barometras (atmosferos slėgis)
+-  **NoSQL duomenų bazė** - Firebase Realtime Database
+-  **Internetinė svetainė** - HTML/JavaScript
+-  **Bendravimas tarp sistemų** - Firebase WebSocket (real-time listeners)
 
 ## 🔐 Saugumas
 
@@ -162,10 +162,6 @@ firebase deploy
 **Netlify:**
 Tiesiog nuvilkite `website/` katalogą į netlify.com
 
-## 📸 Screenshots
-
-(Pridėkite screenshots čia)
-
 ## 🛠️ Technologijos
 
 - React Native (Expo SDK 54)
@@ -181,7 +177,7 @@ MIT
 
 ## 👤 Autorius
 
-Jūsų vardas - [GitHub](https://github.com/JŪSŲ-USERNAME)
+Tautvydas Petrov - [GitHub](https://github.com/JŪSŲ-USERNAME)
 
 ## 🤝 Contribution
 
