@@ -1,0 +1,10 @@
+# SVARBU: config.js su API raktais
+config.js
+
+# OS failai
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
