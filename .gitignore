@@ -1,0 +1,77 @@
+# ========================================
+# KRITIŠKAI SVARBU: API raktai ir konfigūracija
+# ========================================
+.env
+.env.local
+.env.*.local
+env.js
+
+# Web konfigūracija su API raktais
+website/config.js
+
+# ========================================
+# Node modules
+# ========================================
+node_modules/
+WeatherRoadApp/node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# ========================================
+# Expo
+# ========================================
+WeatherRoadApp/.expo/
+WeatherRoadApp/.expo-shared/
+WeatherRoadApp/dist/
+WeatherRoadApp/web-build/
+.expo/
+.expo-shared/
+dist/
+web-build/
+
+# ========================================
+# Native builds
+# ========================================
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.ipa
+*.apk
+
+# ========================================
+# Metro
+# ========================================
+.metro-health-check*
+
+# ========================================
+# Debug logs
+# ========================================
+yarn-debug.log*
+.pnp.*
+.yarn/*
+npm-debug.log*
+
+# ========================================
+# OS Files
+# ========================================
+.DS_Store
+Thumbs.db
+
+# ========================================
+# IDE
+# ========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ========================================
+# EAS (jei naudojate)
+# ========================================
+WeatherRoadApp/eas.json
