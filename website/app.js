@@ -1,9 +1,9 @@
-// Firebase imports
+
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+import { getDatabase, ref, onValue, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 import { firebaseConfig } from './config.js';
 
-// Inicializuoti Firebase
+
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
@@ -16,7 +16,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19
 }).addTo(map);
 
-// Saugoti marker objektus
+
 let markers = [];
 let leafletMarkers = [];
 let activeMarkerId = null;
@@ -33,6 +33,7 @@ function getMarkerColor(condition) {
   return '#2196F3';
 }
 
+// Sukurti custom marker ikoną
 function createCustomIcon(color) {
   return L.divIcon({
     className: 'custom-marker',
@@ -69,6 +70,17 @@ function createPopupContent(marker) {
       <p style="margin: 10px 0 0 0; font-size: 11px; color: #666;">
         📍 ${marker.lat.toFixed(4)}, ${marker.lon.toFixed(4)}
       </p>
+      <button onclick="deleteMarker('${marker.id}')" style="
+        background: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        font-weight: bold;
+      ">🗑️ Ištrinti žymą</button>
     </div>
   `;
 }
@@ -83,21 +95,24 @@ function updateMarkerList(markersData) {
   }
 
   listContainer.innerHTML = markersData.map(marker => `
-    <div class="marker-item" data-id="${marker.id}" onclick="focusMarker('${marker.id}')">
-      <div class="marker-condition" style="color: ${getMarkerColor(marker.roadCondition)};">
-        <span>${getEmoji(marker.roadCondition)}</span>
-        <span>${marker.roadCondition}</span>
-      </div>
-      ${marker.customMessage ? `
-        <div class="marker-message">
-          ${marker.customMessage}
+    <div class="marker-item" data-id="${marker.id}">
+      <div onclick="focusMarker('${marker.id}')" style="cursor: pointer;">
+        <div class="marker-condition" style="color: ${getMarkerColor(marker.roadCondition)};">
+          <span>${getEmoji(marker.roadCondition)}</span>
+          <span>${marker.roadCondition}</span>
         </div>
-      ` : ''}
-      <div class="marker-info">
-        <div class="marker-info-item">🌡️ ${marker.temperature}°C</div>
-        <div class="marker-info-item">☁️ ${marker.weather}</div>
-        ${marker.pressure ? `<div class="marker-info-item">📊 ${marker.pressure} hPa</div>` : ''}
+        ${marker.customMessage ? `
+          <div class="marker-message">
+            ${marker.customMessage}
+          </div>
+        ` : ''}
+        <div class="marker-info">
+          <div class="marker-info-item">🌡️ ${marker.temperature}°C</div>
+          <div class="marker-info-item">☁️ ${marker.weather}</div>
+          ${marker.pressure ? `<div class="marker-info-item">📊 ${marker.pressure} hPa</div>` : ''}
+        </div>
       </div>
+      <button class="delete-btn" onclick="deleteMarker('${marker.id}')">🗑️ Ištrinti</button>
     </div>
   `).join('');
 }
@@ -115,12 +130,12 @@ function getEmoji(condition) {
   return '📍';
 }
 
-
+// Fokusuoti į konkretų marker
 window.focusMarker = function(markerId) {
   const marker = markers.find(m => m.id === markerId);
   if (!marker) return;
 
-
+  
   document.querySelectorAll('.marker-item').forEach(item => {
     item.classList.remove('active');
   });
@@ -128,7 +143,7 @@ window.focusMarker = function(markerId) {
   
   document.querySelector(`[data-id="${markerId}"]`).classList.add('active');
 
-  
+  // Centruoti žemėlapį ir atidaryti popup
   map.setView([marker.lat, marker.lon], 15);
   
   const leafletMarker = leafletMarkers.find(m => m.options.markerId === markerId);
@@ -137,6 +152,26 @@ window.focusMarker = function(markerId) {
   }
 
   activeMarkerId = markerId;
+};
+
+// Ištrinti žymą
+window.deleteMarker = async function(markerId) {
+  if (!confirm('Ar tikrai norite ištrinti šią žymą?')) {
+    return;
+  }
+
+  try {
+    console.log(' Trinamas marker:', markerId);
+    const markerRef = ref(database, `markers/${markerId}`);
+    await remove(markerRef);
+    console.log(' Marker ištrintas');
+    
+    // Uždaryti visus popup
+    map.closePopup();
+  } catch (error) {
+    console.error(' Klaida trinant marker:', error);
+    alert('Klaida trinant žymą: ' + error.message);
+  }
 };
 
 // Klausytis Firebase Realtime Database pokyčių
@@ -158,18 +193,19 @@ onValue(markersRef, (snapshot) => {
     return;
   }
 
-  // Konvertuoti objektą į array
+  
   markers = Object.keys(data).map(key => ({
     id: key,
     ...data[key]
   }));
 
-  console.log('✅ Gauta žymų:', markers.length);
+  console.log(' Gauta žymų:', markers.length);
 
-  
+  // Atnaujinti statistiką
   document.getElementById('marker-count').textContent = 
     `Viso žymų: ${markers.length}`;
 
+  // Pridėti markers į žemėlapį
   markers.forEach(marker => {
     const leafletMarker = L.marker(
       [marker.lat, marker.lon],
@@ -183,12 +219,13 @@ onValue(markersRef, (snapshot) => {
 
     leafletMarkers.push(leafletMarker);
 
+    // Jei buvo aktyvus, atidaryti popup
     if (activeMarkerId === marker.id) {
       leafletMarker.openPopup();
     }
   });
 
- 
+  // Atnaujinti sąrašą
   updateMarkerList(markers);
 
   // Jei yra žymų, centruoti žemėlapį į jas
