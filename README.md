@@ -123,22 +123,6 @@ python -m http.server 8000
 -  **Internetinė svetainė** - HTML/JavaScript
 -  **Bendravimas tarp sistemų** - Firebase WebSocket (real-time listeners)
 
-## 🔐 Saugumas
-
-### ⚠️ LABAI SVARBU!
-
-**NIEKADA** nepridėkite šių failų į Git:
-- `WeatherRoadApp/.env` - Turi API raktus
-- `website/config.js` - Turi Firebase konfigūraciją
-
-Šie failai jau yra `.gitignore` sąraše!
-
-### Saugus Workflow:
-
-1. Clone repo
-2. Nukopijuokite `.example` failus
-3. Užpildykite savo API raktais
-4. Niekada necommit'inkite originalių config failų
 
 ## 🌍 Deployment
 
@@ -178,10 +162,6 @@ MIT
 ## 👤 Autorius
 
 Tautvydas Petrov - [GitHub](https://github.com/JŪSŲ-USERNAME)
-
-## 🤝 Contribution
-
-Pull requests priimami! Didesnėms keitimams, pirmiausia atidarykite issue.
 
 ## 📞 Pagalba
 
